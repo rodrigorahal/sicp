@@ -1,0 +1,32 @@
+(define (make-mutex)
+  (let ((cell (list false)))
+    (define (the-mutex m)
+      (cond ((eq? m 'acquire)
+             (if (test-and-set! cell)
+                 (the-mutex 'acquire))) ; retry
+            ((eq? m 'release) (clear! cell))))
+    the-mutex))
+(define (clear! cell)
+  (set-car! cell false))
+
+(define (test-and-set! cell)
+  (if (car cell)
+      true
+      (begin (set-car! cell true)
+             false)))
+
+(define (make-semaphor n)
+  (let ((count 0)
+        (lock (make-mutex)))
+    (define (the-semaphor m)
+      (cond ((eq? m 'acquire)
+             (lock 'acquire)
+             (if (< count n)
+                 (begin (set! count (+ count + 1)) (lock 'release))
+                 (begin (lock 'release) (the-semaphor 'acquire))))
+            ((eq? m 'release)
+             (lock 'acquire)
+             (set! count (- count 1))
+             (lock 'release))))
+
+  the-semaphor))
