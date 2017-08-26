@@ -1,0 +1,7 @@
+(define (let*->nested-lets exp)
+    (define (make-let params)
+      (if (last-exp? params)
+          (append (list 'let (list (car params)))
+                  (let-body exp))
+          (list 'let (list (car params)) (make-let (cdr params)))))
+    (make-let (cadr exp)))
