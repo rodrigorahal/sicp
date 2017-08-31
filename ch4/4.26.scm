@@ -1,0 +1,12 @@
+(define (eval-unless exp env)
+  (eval (make-if (unless-conditional exp)
+                 (unless-exceptional exp)
+                 (unless-usual exp))
+         env))
+
+(define (unless-conditional exp) (cadr exp))
+(define (unless-usual exp) (caddr exp))
+(define (unless-exceptional exp)
+  (if (not (null? (cdddr exp)))
+      (cadddr exp)
+      'false))
