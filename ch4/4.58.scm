@@ -1,0 +1,5 @@
+(assert! (rule (big-shot ?person)
+  (and (job ?person (?departament . ?rest))
+       (supervisor ?person ?supervisor)
+       (job ?supervisor (?sup-departament . ?sup-rest))
+       (not (same ?departament ?sup-departament))))
