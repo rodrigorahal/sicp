@@ -1,1 +1,1 @@
-self-education attempt to solve [SICP](https://mitpress.mit.edu/sicp/full-text/book/book.html) exercises
+self-education attempt to solve [SICP](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html) exercises
